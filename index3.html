@@ -1,202 +1,1560 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Impulso — Asesoría & Formación</title>
-<meta name="description" content="Plataforma de asesoría, formación, herramientas y seguimiento profesional.">
-<style>
-:root{
-  --bg:#f5f7fb; --card:#fff; --text:#172033; --muted:#6b7485;
-  --primary:#5b5ce2; --primary2:#7b61ff; --accent:#16b8a6;
-  --border:#e7eaf2; --shadow:0 18px 50px rgba(30,39,75,.08);
-  --danger:#e85d75; --warning:#f2a93b;
-}
-*{box-sizing:border-box} body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;color:var(--text);background:var(--bg)}
-button,input,select,textarea{font:inherit} button{cursor:pointer;border:0}
-.app{display:flex;min-height:100vh}.sidebar{width:260px;background:#11152b;color:#fff;padding:24px 16px;position:fixed;inset:0 auto 0 0;z-index:20}
-.brand{display:flex;align-items:center;gap:11px;padding:4px 12px 30px;font-weight:800;font-size:20px}.logo{width:38px;height:38px;border-radius:12px;background:linear-gradient(135deg,#7b61ff,#29d6c0);display:grid;place-items:center;font-weight:900}
-.nav{display:grid;gap:7px}.nav button{color:#b9bfd2;background:transparent;text-align:left;padding:13px 14px;border-radius:12px;display:flex;gap:12px;align-items:center}.nav button:hover,.nav button.active{background:rgba(255,255,255,.09);color:#fff}.nav span{font-size:18px;width:22px}
-.side-bottom{position:absolute;left:16px;right:16px;bottom:20px;background:linear-gradient(135deg,rgba(123,97,255,.25),rgba(22,184,166,.14));padding:16px;border:1px solid rgba(255,255,255,.08);border-radius:16px;color:#cdd2e3;font-size:12px}
-.main{margin-left:260px;width:calc(100% - 260px);padding:24px 30px 50px}.topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:28px}.mobile-menu{display:none}.profile{display:flex;align-items:center;gap:10px}.avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#5b5ce2,#16b8a6);color:white;display:grid;place-items:center;font-weight:800}.welcome h1{font-size:28px;margin:0 0 6px}.welcome p{margin:0;color:var(--muted)}
-.page{display:none}.page.active{display:block}.grid{display:grid;gap:18px}.g4{grid-template-columns:repeat(4,1fr)}.g3{grid-template-columns:repeat(3,1fr)}.g2{grid-template-columns:repeat(2,1fr)}
-.card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:20px;box-shadow:var(--shadow)}.stat{display:flex;justify-content:space-between;align-items:flex-start}.stat .icon{width:44px;height:44px;border-radius:13px;background:#f0efff;color:var(--primary);display:grid;place-items:center;font-size:20px}.stat strong{font-size:28px;display:block;margin-top:10px}.stat small{color:var(--muted)}.section-title{display:flex;justify-content:space-between;align-items:center;margin:30px 0 14px}.section-title h2{font-size:18px;margin:0}.btn{padding:11px 16px;border-radius:11px;background:var(--primary);color:#fff;font-weight:700}.btn.secondary{background:#f0efff;color:var(--primary)}.btn.ghost{background:transparent;color:var(--primary);padding:7px}.btn.danger{background:#fff0f2;color:var(--danger)}
-.hero{background:linear-gradient(120deg,#222657,#5b5ce2 55%,#16b8a6);color:#fff;padding:28px;border-radius:22px;position:relative;overflow:hidden}.hero:after{content:"";position:absolute;width:250px;height:250px;border:45px solid rgba(255,255,255,.08);border-radius:50%;right:-70px;top:-110px}.hero h2{margin:0 0 8px;font-size:25px}.hero p{margin:0;color:#e6e8ff;max-width:620px}.hero .btn{background:#fff;color:#3435a8;margin-top:20px}
-.list{display:grid;gap:12px}.item{display:flex;align-items:center;justify-content:space-between;padding:14px;border:1px solid var(--border);border-radius:14px}.item-left{display:flex;gap:13px;align-items:center}.item-icon{width:42px;height:42px;border-radius:12px;background:#f3f4ff;display:grid;place-items:center}.muted{color:var(--muted);font-size:13px}.badge{font-size:11px;padding:5px 9px;border-radius:99px;background:#e9fbf7;color:#128e80;font-weight:800}.badge.orange{background:#fff5e4;color:#ae7218}.progress{height:8px;background:#edf0f6;border-radius:99px;overflow:hidden}.progress > div{height:100%;background:linear-gradient(90deg,var(--primary),var(--accent));border-radius:inherit}
-.form{display:grid;gap:14px}.field label{font-size:13px;font-weight:700;display:block;margin-bottom:7px}.field input,.field select,.field textarea{width:100%;border:1px solid var(--border);border-radius:11px;padding:12px;background:#fbfcfe;outline:none}.field textarea{min-height:110px;resize:vertical}.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--primary);box-shadow:0 0 0 3px #ecebff}
-.calendar{display:grid;grid-template-columns:repeat(7,1fr);gap:7px}.day{padding:11px 4px;text-align:center;border:1px solid var(--border);border-radius:10px;font-size:12px}.day.available{color:var(--primary);font-weight:800}.day.selected{background:var(--primary);color:#fff}.time-grid{display:flex;flex-wrap:wrap;gap:8px}.time{padding:9px 12px;border:1px solid var(--border);border-radius:9px;background:white}.time.selected{background:#ecebff;color:var(--primary);border-color:#c9c6ff;font-weight:700}
-.tool{transition:.2s}.tool:hover{transform:translateY(-3px);border-color:#d4d1ff}.tool h3{margin:12px 0 5px;font-size:16px}.tool p{font-size:13px;color:var(--muted);line-height:1.5}.tool .bigicon{font-size:27px}
-.chat{display:grid;grid-template-columns:280px 1fr;min-height:520px;overflow:hidden;padding:0}.chat-list{border-right:1px solid var(--border);padding:15px}.chat-user{padding:12px;border-radius:12px;display:flex;gap:10px}.chat-user.active{background:#f0efff}.chat-main{display:flex;flex-direction:column}.messages{padding:20px;flex:1;background:#fbfcff;display:flex;flex-direction:column;gap:12px}.bubble{max-width:70%;padding:11px 14px;border-radius:15px;background:#fff;border:1px solid var(--border);font-size:14px}.bubble.me{margin-left:auto;background:#5b5ce2;color:#fff;border:0;border-bottom-right-radius:4px}.bubble.them{border-bottom-left-radius:4px}.chat-input{padding:13px;border-top:1px solid var(--border);display:flex;gap:8px}.chat-input input{flex:1;border:1px solid var(--border);border-radius:10px;padding:11px}
-.table{width:100%;border-collapse:collapse}.table th,.table td{text-align:left;padding:13px 10px;border-bottom:1px solid var(--border);font-size:13px}.table th{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.05em}
-.modal{position:fixed;inset:0;background:rgba(13,18,39,.55);display:none;align-items:center;justify-content:center;z-index:50;padding:20px}.modal.open{display:flex}.modal-box{background:#fff;border-radius:20px;width:min(520px,100%);padding:25px;box-shadow:0 30px 80px rgba(0,0,0,.2)}.modal-head{display:flex;justify-content:space-between;align-items:center}.close{background:#f2f3f7;width:34px;height:34px;border-radius:9px}.toast{position:fixed;right:22px;bottom:22px;background:#171b34;color:#fff;padding:13px 17px;border-radius:12px;display:none;z-index:80}.toast.show{display:block}
-.auth{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(13,18,39,.55);z-index:60;padding:20px}.auth.open{display:flex}.auth-card{width:min(440px,100%);background:white;border-radius:24px;padding:30px;box-shadow:0 30px 80px rgba(0,0,0,.2)}.auth .brand{color:#171b34;padding:0 0 22px}.auth h1{margin:0 0 7px}.auth p{color:var(--muted);font-size:14px}.auth-links{display:flex;justify-content:space-between;font-size:12px;margin-top:10px}.auth-links a{color:var(--primary);cursor:pointer}.check{display:flex;gap:8px;font-size:12px;color:var(--muted);align-items:flex-start}.check input{margin-top:3px}
-.auth-btn{position:fixed;top:24px;right:24px;padding:11px 16px;background:var(--primary);color:#fff;border-radius:11px;font-weight:700;border:0;cursor:pointer;z-index:40;transition:.3s}.auth-btn:hover{background:var(--primary2);transform:translateY(-2px)}
-.whatsapp-btn{position:fixed;bottom:30px;right:30px;width:60px;height:60px;background:#25d366;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(0,0,0,.15);text-decoration:none;z-index:40;transition:.3s}.whatsapp-btn:hover{transform:scale(1.1);box-shadow:0 6px 20px rgba(37,211,102,.4)}.whatsapp-btn svg{width:32px;height:32px}.whatsapp-container{position:fixed;bottom:30px;right:100px;display:flex;align-items:center;gap:12px;z-index:40}.whatsapp-message{background:#25d366;color:#fff;padding:12px 16px;border-radius:20px;font-size:13px;font-weight:600;white-space:nowrap;box-shadow:0 4px 12px rgba(0,0,0,.15);animation:slideIn .3s ease-out}.whatsapp-message::after{content:'';position:absolute;right:-8px;top:50%;transform:translateY(-50%);width:0;height:0;border-left:8px solid #25d366;border-top:6px solid transparent;border-bottom:6px solid transparent}@keyframes slideIn{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:translateX(0)}}
-@media(max-width:1000px){.g4{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:760px){.sidebar{transform:translateX(-100%);transition:.25s}.sidebar.open{transform:translateX(0)}.main{margin-left:0;width:100%;padding:18px}.mobile-menu{display:block;background:#fff;border:1px solid var(--border);width:40px;height:40px;border-radius:11px}.topbar{gap:12px}.welcome h1{font-size:22px}.g4,.g3,.g2{grid-template-columns:1fr}.chat{grid-template-columns:1fr}.chat-list{display:none}.section-title{margin-top:22px}}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Una Rosa para Mariana 🌹</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Great+Vibes&family=Montserrat:wght@400;600;700&family=Pacifico&display=swap"
+    rel="stylesheet"
+  >
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      min-height: 100dvh;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Montserrat', sans-serif;
+      background: radial-gradient(
+        circle at center,
+        #21101b 0%,
+        #10070c 55%,
+        #000000 100%
+      );
+    }
+
+    /* Partículas de fondo */
+    #ambientCanvas {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .main-container {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      min-height: 100dvh;
+      width: 100%;
+      max-width: 480px;
+      padding: 30px 20px;
+    }
+
+    /* Título azul luminoso */
+    .glowing-header {
+      font-family: 'Pacifico', cursive;
+      font-size: 2.2rem;
+      color: #d6edff;
+      text-align: center;
+      margin-bottom: 25px;
+      text-shadow:
+        0 0 10px rgba(70, 160, 255, 0.8),
+        0 0 20px rgba(30, 120, 255, 0.5);
+      animation: blueGlow 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes blueGlow {
+      0% {
+        text-shadow:
+          0 0 10px rgba(70, 160, 255, 0.8),
+          0 0 20px rgba(30, 120, 255, 0.5);
+      }
+
+      100% {
+        text-shadow:
+          0 0 18px rgba(150, 215, 255, 1),
+          0 0 35px rgba(60, 150, 255, 0.85);
+      }
+    }
+
+    /* Cúpula de cristal */
+    .dome-wrapper {
+      position: relative;
+      width: 230px;
+      height: 320px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      flex-shrink: 0;
+    }
+
+    .dome-knob {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: radial-gradient(
+        circle at 35% 35%,
+        #ffffff,
+        #ffd54f 60%,
+        #b28900 100%
+      );
+      box-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
+      z-index: 4;
+    }
+
+    .glass-dome {
+      position: absolute;
+      top: 15px;
+      width: 200px;
+      height: 281px;
+      border-top-left-radius: 100px;
+      border-top-right-radius: 100px;
+      background: linear-gradient(
+        115deg,
+        rgba(255, 255, 255, 0.13) 0%,
+        rgba(225, 240, 255, 0.025) 42%,
+        rgba(255, 255, 255, 0.07) 100%
+      );
+      border: 2px solid rgba(224, 235, 245, 0.48);
+      border-bottom: none;
+      box-shadow:
+        inset 0 0 22px rgba(225, 240, 255, 0.08),
+        inset 8px 0 14px rgba(255, 255, 255, 0.17),
+        inset -8px 0 12px rgba(210, 225, 245, 0.07),
+        0 0 28px rgba(230, 210, 175, 0.12);
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    .glass-reflection {
+      position: absolute;
+      top: 35px;
+      left: 22px;
+      width: 9px;
+      height: 190px;
+      border-radius: 10px;
+      background: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.6) 0%,
+        rgba(255, 255, 255, 0) 90%
+      );
+      transform: rotate(-8deg);
+      opacity: 0.75;
+    }
+
+    .dome-base {
+      position: relative;
+      width: 230px;
+      height: 24px;
+      background: linear-gradient(180deg, #422d08, #1e1402);
+      border-radius: 12px;
+      border: 1px solid #735111;
+      box-shadow:
+        0 10px 25px rgba(0, 0, 0, 0.8),
+        0 0 20px rgba(255, 200, 0, 0.3);
+      z-index: 2;
+    }
+
+    /* Rosa roja inspirada en El Principito */
+    .enchanted-rose {
+      position: absolute;
+      bottom: 29px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      filter: drop-shadow(0 0 5px rgba(235, 62, 65, 0.2));
+    }
+
+    .rose-svg {
+      width: 145px;
+      height: 228px;
+      overflow: visible;
+      transform-origin: 50% 94%;
+      animation: princeRoseSway 6s ease-in-out infinite;
+    }
+
+    @keyframes princeRoseSway {
+      0%,
+      100% {
+        transform: rotate(-1.2deg);
+      }
+
+      50% {
+        transform: rotate(1.2deg);
+      }
+    }
+
+    /* Pétalos sobre la base */
+    .fallen-petals {
+      position: absolute;
+      bottom: 24px;
+      width: 140px;
+      display: flex;
+      justify-content: space-around;
+      z-index: 2;
+    }
+
+    .fallen-petal {
+      width: 16px;
+      height: 9px;
+      background: linear-gradient(
+        135deg,
+        #ff7667,
+        #db293b 55%,
+        #8d142c
+      );
+      border-radius: 70% 30% 65% 35%;
+      box-shadow: 0 0 5px rgba(235, 62, 65, 0.25);
+    }
+
+    .petal-1 {
+      transform: rotate(-18deg) translateY(3px);
+    }
+
+    .petal-2 {
+      transform: rotate(32deg) translateY(5px);
+    }
+
+    /* Botón principal */
+    .open-card-btn {
+      margin-top: 35px;
+      background: linear-gradient(135deg, #ffb1d1, #f062a0);
+      color: #124b87;
+      border: none;
+      padding: 12px 36px;
+      font-size: 1.15rem;
+      font-weight: 700;
+      border-radius: 30px;
+      cursor: pointer;
+      box-shadow: 0 0 25px rgba(255, 110, 170, 0.5);
+      transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+      font-family: 'Montserrat', sans-serif;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .open-card-btn:hover {
+      transform: scale(1.06) translateY(-2px);
+      box-shadow: 0 0 35px rgba(255, 160, 200, 0.85);
+    }
+
+    button:focus-visible {
+      outline: 3px solid #b9dfff;
+      outline-offset: 5px;
+    }
+
+    /* Fondo de las ventanas */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      z-index: 100;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition:
+        opacity 0.4s ease,
+        visibility 0.4s ease;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    /* Carta del poema */
+    .love-card {
+      position: relative;
+      width: 100%;
+      max-width: 600px;
+      max-height: 88vh;
+      max-height: 88dvh;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      padding: 42px 32px 28px;
+      border-radius: 26px;
+      border: 1px solid rgba(130, 181, 225, 0.75);
+      background:
+        radial-gradient(
+          circle at top left,
+          rgba(215, 235, 255, 0.65),
+          transparent 45%
+        ),
+        linear-gradient(180deg, #fffdfd, #f0f7ff);
+      box-shadow:
+        0 25px 60px rgba(0, 0, 0, 0.6),
+        0 0 35px rgba(95, 165, 235, 0.25);
+      text-align: center;
+      transform: scale(0.65) translateY(50px);
+      transition: transform 0.4s
+        cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      scrollbar-width: thin;
+      scrollbar-color: #8bb4dc #eef5fc;
+    }
+
+    .modal-overlay.active .love-card {
+      transform: scale(1) translateY(0);
+    }
+
+    .love-card:focus {
+      outline: none;
+    }
+
+    .love-card:focus-visible {
+      outline: 2px solid #78a9d5;
+      outline-offset: 3px;
+    }
+
+    .love-card::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .love-card::-webkit-scrollbar-track {
+      background: #eef5fc;
+      border-radius: 10px;
+    }
+
+    .love-card::-webkit-scrollbar-thumb {
+      background: #8bb4dc;
+      border-radius: 10px;
+    }
+
+    .card-decorations {
+      font-size: 1.6rem;
+      letter-spacing: 6px;
+      margin-bottom: 15px;
+    }
+
+    .card-recipient {
+      color: #47749c;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    .card-title {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(2.3rem, 7vw, 3.2rem);
+      font-weight: 400;
+      line-height: 1.2;
+      color: #165ca8;
+      max-width: 440px;
+      margin: 0 auto 22px;
+      text-wrap: balance;
+    }
+
+    .poem-divider {
+      width: 110px;
+      height: 1px;
+      margin: 0 auto 25px;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        #78a9d5,
+        transparent
+      );
+    }
+
+    .card-message.poem {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: 1.05rem;
+      font-weight: 400;
+      line-height: 1.85;
+      color: #234b75;
+      text-align: center;
+      margin-bottom: 26px;
+      user-select: text;
+      overflow-wrap: break-word;
+    }
+
+    .poem .stanza {
+      margin: 0 0 24px;
+    }
+
+    .poem .stanza:last-child {
+      margin-bottom: 0;
+    }
+
+    .poem .italian-verse {
+      font-style: italic;
+      color: #47749c;
+      padding: 0 4px 22px;
+      margin-bottom: 25px;
+      border-bottom: 1px solid rgba(120, 169, 213, 0.25);
+    }
+
+    .card-signature {
+      font-family: 'Caveat', cursive;
+      font-size: 2rem;
+      font-weight: 700;
+      color: #2075c9;
+      margin-bottom: 22px;
+    }
+
+    .close-card-btn {
+      background: linear-gradient(135deg, #225c96, #163e69);
+      color: #f0f7ff;
+      padding: 11px 30px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 20px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 5px 15px rgba(30, 80, 130, 0.2);
+      transition: background 0.2s ease;
+    }
+
+    .close-card-btn:hover {
+      background: linear-gradient(135deg, #3075b8, #20558b);
+    }
+
+    /* Ventana de contraseña */
+    .password-card {
+      width: 100%;
+      max-width: 380px;
+      max-height: 88vh;
+      max-height: 88dvh;
+      overflow-y: auto;
+      padding: 32px 24px;
+      border-radius: 24px;
+      border: 1px solid rgba(130, 181, 225, 0.75);
+      background: linear-gradient(180deg, #fffdfd, #f0f7ff);
+      box-shadow:
+        0 25px 60px rgba(0, 0, 0, 0.6),
+        0 0 35px rgba(95, 165, 235, 0.25);
+      text-align: center;
+      color: #234b75;
+      transform: translateY(20px);
+      transition: transform 0.3s ease;
+    }
+
+    .modal-overlay.active .password-card {
+      transform: translateY(0);
+    }
+
+    .password-title {
+      font-family: 'Great Vibes', cursive;
+      font-size: 2.5rem;
+      font-weight: 400;
+      color: #165ca8;
+      margin-bottom: 12px;
+    }
+
+    .password-description {
+      font-size: 0.9rem;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .password-label {
+      display: block;
+      font-size: 0.85rem;
+      margin-bottom: 10px;
+    }
+
+    .password-input {
+      display: block;
+      width: 180px;
+      max-width: 100%;
+      margin: 0 auto;
+      padding: 12px;
+      border: 2px solid #8bb4dc;
+      border-radius: 14px;
+      background: #ffffff;
+      color: #165ca8;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.8rem;
+      letter-spacing: 8px;
+      text-align: center;
+    }
+
+    .password-input:focus-visible {
+      outline: 3px solid #b9dfff;
+      outline-offset: 3px;
+    }
+
+    .password-input[aria-invalid="true"] {
+      border-color: #b42355;
+    }
+
+    .password-error {
+      min-height: 24px;
+      margin: 12px 0;
+      color: #b42355;
+      font-size: 0.85rem;
+      line-height: 1.5;
+    }
+
+    .password-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .password-cancel {
+      padding: 11px 20px;
+      border: 1px solid #8bb4dc;
+      border-radius: 20px;
+      background: transparent;
+      color: #234b75;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.95rem;
+      cursor: pointer;
+    }
+
+    .password-cancel:hover {
+      background: #e2effb;
+    }
+
+    /* Ajustes para celulares */
+    @media (max-width: 480px) {
+      .modal-overlay {
+        padding: 14px;
+      }
+
+      .love-card {
+        padding: 30px 18px 24px;
+        border-radius: 22px;
+      }
+
+      .card-message.poem {
+        font-size: 0.95rem;
+        line-height: 1.8;
+      }
+
+      .poem .stanza {
+        margin-bottom: 22px;
+      }
+
+      .card-recipient {
+        font-size: 0.7rem;
+        letter-spacing: 2px;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .glowing-header {
+        font-size: 1.9rem;
+      }
+
+      .password-card {
+        padding: 26px 18px;
+      }
+    }
+
+    /* Reducir animaciones según la preferencia del dispositivo */
+    @media (prefers-reduced-motion: reduce) {
+      .glowing-header,
+      .rose-svg {
+        animation: none;
+      }
+
+      .modal-overlay,
+      .love-card,
+      .password-card,
+      .open-card-btn,
+      .close-card-btn {
+        transition: none;
+      }
+    }
+  </style>
 </head>
+
 <body>
-<button class="auth-btn" id="authToggleBtn" onclick="openAuthModal()">Iniciar sesión o registrate</button>
+  <canvas id="ambientCanvas" aria-hidden="true"></canvas>
 
-<div id="auth" class="auth">
-  <div class="auth-card">
-    <button style="position:absolute;top:15px;right:15px;background:#f2f3f7;width:34px;height:34px;border-radius:9px;border:0;cursor:pointer;font-size:20px" onclick="closeAuthModal()">×</button>
-    <div class="brand"><div class="logo">🧠</div>user</div>
-    <h1 id="authTitle">Bienvenido de nuevo</h1>
-    <p id="authSubtitle">Accede a tus asesorías, recursos y seguimiento.</p>
-    <form class="form" onsubmit="login(event)">
-      <div class="field" id="nameField" style="display:none"><label>Nombre completo</label><input id="name" placeholder="Tu nombre"></div>
-      <div class="field"><label>Correo electrónico</label><input id="email" type="email" required placeholder="nombre@correo.com"></div>
-      <div class="field"><label>Contraseña</label><input id="password" type="password" required placeholder="••••••••"></div>
-      <label class="check"><input type="checkbox"> Mantener mi sesión iniciada</label>
-      <button class="btn" id="authBtn">Iniciar sesión</button>
-    </form>
-    <div class="auth-links"><span>Plataforma segura</span><a onclick="toggleAuth()">Crear una cuenta</a></div>
+  <main class="main-container" id="mainContent">
+    <h1 class="glowing-header">
+      Una Rosa<br>para Ti
+    </h1>
+
+    <div class="dome-wrapper">
+      <div class="dome-knob"></div>
+
+      <div class="glass-dome">
+        <div class="glass-reflection"></div>
+      </div>
+
+      <!-- Rosa roja inspirada en El Principito -->
+      <div class="enchanted-rose">
+        <svg
+          class="rose-svg"
+          viewBox="0 0 140 220"
+          xmlns="http://www.w3.org/2000/svg"
+          role="img"
+          aria-label="Rosa roja de pétalos delicados bajo una cúpula de cristal"
+        >
+          <defs>
+            <linearGradient
+              id="princePetalOuter"
+              x1="0%" y1="0%"
+              x2="85%" y2="100%"
+            >
+              <stop offset="0%" stop-color="#ff756c"/>
+              <stop offset="30%" stop-color="#ed343c"/>
+              <stop offset="70%" stop-color="#bd112b"/>
+              <stop offset="100%" stop-color="#710d24"/>
+            </linearGradient>
+
+            <linearGradient
+              id="princePetalLight"
+              x1="15%" y1="0%"
+              x2="80%" y2="100%"
+            >
+              <stop offset="0%" stop-color="#ff9980"/>
+              <stop offset="25%" stop-color="#ff5b56"/>
+              <stop offset="65%" stop-color="#df2436"/>
+              <stop offset="100%" stop-color="#980f2a"/>
+            </linearGradient>
+
+            <linearGradient
+              id="princePetalShade"
+              x1="0%" y1="20%"
+              x2="100%" y2="80%"
+            >
+              <stop offset="0%" stop-color="#df3042"/>
+              <stop offset="55%" stop-color="#a5102d"/>
+              <stop offset="100%" stop-color="#580c20"/>
+            </linearGradient>
+
+            <radialGradient
+              id="princeRoseHeart"
+              cx="42%" cy="30%" r="75%"
+            >
+              <stop offset="0%" stop-color="#ff7967"/>
+              <stop offset="40%" stop-color="#e6303b"/>
+              <stop offset="80%" stop-color="#960f2c"/>
+              <stop offset="100%" stop-color="#590c21"/>
+            </radialGradient>
+
+            <linearGradient
+              id="princeStem"
+              x1="0%" y1="0%"
+              x2="100%" y2="0%"
+            >
+              <stop offset="0%" stop-color="#315336"/>
+              <stop offset="50%" stop-color="#79a65b"/>
+              <stop offset="100%" stop-color="#294b32"/>
+            </linearGradient>
+
+            <linearGradient
+              id="princeLeaf"
+              x1="0%" y1="0%"
+              x2="100%" y2="100%"
+            >
+              <stop offset="0%" stop-color="#a5bd70"/>
+              <stop offset="45%" stop-color="#648a48"/>
+              <stop offset="100%" stop-color="#284e34"/>
+            </linearGradient>
+
+            <radialGradient id="princeRoseHalo">
+              <stop
+                offset="0%"
+                stop-color="#ff604f"
+                stop-opacity="0.18"
+              />
+              <stop
+                offset="60%"
+                stop-color="#ff604f"
+                stop-opacity="0.06"
+              />
+              <stop
+                offset="100%"
+                stop-color="#ff604f"
+                stop-opacity="0"
+              />
+            </radialGradient>
+          </defs>
+
+          <!-- Halo suave -->
+          <ellipse
+            cx="70"
+            cy="61"
+            rx="56"
+            ry="54"
+            fill="url(#princeRoseHalo)"
+          />
+
+          <!-- Tallo -->
+          <path
+            d="M71 89
+               C65 110 73 128 69 148
+               C65 169 69 187 66 207"
+            fill="none"
+            stroke="url(#princeStem)"
+            stroke-width="3.2"
+            stroke-linecap="round"
+          />
+
+          <path
+            d="M70 96
+               C66 113 72 131 68 148
+               C65 170 68 188 65.8 203"
+            fill="none"
+            stroke="#b4ca83"
+            stroke-width="0.65"
+            stroke-linecap="round"
+            opacity="0.6"
+          />
+
+          <!-- Espinas -->
+          <g fill="#527743">
+            <path d="M69 119 L76 115 L70 124 Z"/>
+            <path d="M67 162 L60 158 L67 167 Z"/>
+            <path d="M67 185 L73 181 L67 190 Z"/>
+          </g>
+
+          <!-- Hoja izquierda -->
+          <path
+            d="M70 143
+               C57 143 42 133 35 115
+               C51 116 65 125 70 143 Z"
+            fill="url(#princeLeaf)"
+            stroke="#355d38"
+            stroke-width="0.7"
+          />
+
+          <g
+            fill="none"
+            stroke="#c1d18d"
+            stroke-linecap="round"
+            opacity="0.65"
+          >
+            <path
+              d="M69 142 Q52 129 37 117"
+              stroke-width="0.8"
+            />
+            <path
+              d="M58 133 L55 124
+                 M50 127 L45 120
+                 M58 133 L48 133
+                 M50 127 L42 125"
+              stroke-width="0.45"
+            />
+          </g>
+
+          <!-- Hoja derecha -->
+          <path
+            d="M68 162
+               C80 158 93 146 97 132
+               C82 135 71 146 68 162 Z"
+            fill="url(#princeLeaf)"
+            stroke="#355d38"
+            stroke-width="0.7"
+          />
+
+          <g
+            fill="none"
+            stroke="#c1d18d"
+            stroke-linecap="round"
+            opacity="0.6"
+          >
+            <path
+              d="M69 161 Q82 146 95 134"
+              stroke-width="0.8"
+            />
+            <path
+              d="M79 149 L80 141
+                 M86 142 L88 136
+                 M79 149 L88 147"
+              stroke-width="0.45"
+            />
+          </g>
+
+          <!-- Sépalos -->
+          <g
+            fill="#527a43"
+            stroke="#315335"
+            stroke-width="0.6"
+          >
+            <path
+              d="M69 94
+                 C57 94 48 87 43 76
+                 C54 82 64 84 71 85 Z"
+            />
+            <path
+              d="M72 94
+                 C83 92 93 83 96 73
+                 C86 80 78 84 70 85 Z"
+            />
+            <path
+              d="M66 87
+                 C63 97 66 102 70 106
+                 C73 99 76 94 74 86 Z"
+            />
+          </g>
+
+          <!-- Pétalos del capullo -->
+          <g
+            stroke="#8e1730"
+            stroke-width="0.65"
+            stroke-linejoin="round"
+          >
+            <!-- Posterior izquierdo -->
+            <path
+              d="M49 58
+                 C40 49 39 35 47 27
+                 C53 21 64 24 71 34
+                 C77 45 70 60 63 69 Z"
+              fill="url(#princePetalOuter)"
+            />
+
+            <!-- Posterior derecho -->
+            <path
+              d="M67 37
+                 C75 25 86 24 92 31
+                 C100 41 94 55 85 64
+                 L69 68 Z"
+              fill="url(#princePetalShade)"
+            />
+
+            <!-- Superior -->
+            <path
+              d="M57 44
+                 C49 33 54 20 64 20
+                 C70 17 80 22 83 30
+                 C86 40 77 49 70 55 Z"
+              fill="url(#princePetalLight)"
+            />
+
+            <!-- Lateral izquierdo -->
+            <path
+              d="M64 58
+                 C54 44 41 38 34 44
+                 C29 50 34 65 42 77
+                 C48 86 58 92 70 91
+                 L76 74 Z"
+              fill="url(#princePetalOuter)"
+            />
+
+            <path
+              d="M34 44
+                 C41 40 53 47 61 56
+                 C49 50 40 47 33 51
+                 Q31 47 34 44 Z"
+              fill="#ff8774"
+              stroke="none"
+            />
+
+            <!-- Lateral derecho -->
+            <path
+              d="M73 57
+                 C83 44 95 39 102 45
+                 C107 53 98 72 89 81
+                 C83 88 77 92 68 91
+                 L62 74 Z"
+              fill="url(#princePetalShade)"
+            />
+
+            <path
+              d="M102 45
+                 C94 41 82 49 77 55
+                 C87 50 97 48 104 53
+                 Q106 49 102 45 Z"
+              fill="#ef5260"
+              stroke="none"
+            />
+
+            <!-- Copa interior -->
+            <path
+              d="M47 48
+                 C48 37 60 34 70 43
+                 C80 34 92 39 92 50
+                 C90 64 81 76 70 82
+                 C58 76 49 64 47 48 Z"
+              fill="url(#princePetalLight)"
+            />
+
+            <!-- Profundidad del centro -->
+            <path
+              d="M55 48
+                 C59 42 66 45 70 51
+                 C75 43 83 43 86 49
+                 C82 62 76 69 70 74
+                 C63 67 57 59 55 48 Z"
+              fill="url(#princeRoseHeart)"
+              stroke="none"
+            />
+
+            <!-- Enrollado izquierdo -->
+            <path
+              d="M68 66
+                 C57 59 53 47 58 39
+                 C62 34 70 36 75 44
+                 C67 40 61 44 62 50
+                 C62 56 65 62 68 66 Z"
+              fill="url(#princePetalLight)"
+            />
+
+            <!-- Enrollado derecho -->
+            <path
+              d="M70 67
+                 C81 60 88 47 82 40
+                 C78 35 71 38 67 44
+                 C74 41 80 45 79 51
+                 C78 58 74 63 70 67 Z"
+              fill="url(#princePetalOuter)"
+            />
+
+            <!-- Corazón -->
+            <path
+              d="M63 44
+                 C65 38 75 38 79 45
+                 C82 52 76 60 70 63
+                 C64 59 60 50 63 44 Z"
+              fill="url(#princeRoseHeart)"
+            />
+
+            <!-- Espiral central -->
+            <path
+              d="M64 46
+                 C67 41 75 42 77 47
+                 C79 52 73 56 68 53
+                 C64 50 68 46 72 47
+                 C76 48 73 52 70 50"
+              fill="none"
+              stroke="#ff9b83"
+              stroke-width="1.1"
+              stroke-linecap="round"
+            />
+
+            <!-- Frontal izquierdo -->
+            <path
+              d="M42 65
+                 C51 61 63 69 71 80
+                 C69 85 64 90 58 90
+                 C49 85 44 76 42 65 Z"
+              fill="url(#princePetalLight)"
+            />
+
+            <!-- Frontal derecho -->
+            <path
+              d="M95 63
+                 C84 61 76 71 68 80
+                 C72 87 77 91 83 88
+                 C90 82 94 73 95 63 Z"
+              fill="url(#princePetalOuter)"
+            />
+
+            <!-- Inferior -->
+            <path
+              d="M54 82
+                 C60 80 66 84 71 87
+                 C77 82 83 80 87 82
+                 C83 90 77 96 71 97
+                 C63 95 58 90 54 82 Z"
+              fill="url(#princePetalOuter)"
+            />
+          </g>
+
+          <!-- Reflejos suaves -->
+          <g
+            fill="none"
+            stroke="#ffc0a1"
+            stroke-linecap="round"
+            opacity="0.65"
+          >
+            <path
+              d="M56 29 Q61 22 68 25"
+              stroke-width="0.9"
+            />
+            <path
+              d="M49 47 Q54 40 63 44"
+              stroke-width="0.8"
+            />
+            <path
+              d="M45 66 Q54 65 65 77"
+              stroke-width="0.9"
+            />
+            <path
+              d="M79 76 Q85 68 91 66"
+              stroke-width="0.7"
+            />
+          </g>
+        </svg>
+      </div>
+
+      <div class="fallen-petals" aria-hidden="true">
+        <div class="fallen-petal petal-1"></div>
+        <div class="fallen-petal petal-2"></div>
+      </div>
+
+      <div class="dome-base"></div>
+    </div>
+
+    <button
+      class="open-card-btn"
+      id="openBtn"
+      type="button"
+      aria-haspopup="dialog"
+      aria-controls="passwordModal"
+    >
+      <span>Leer Carta</span>
+      <span aria-hidden="true">🌹</span>
+    </button>
+  </main>
+
+  <!-- Ventana de contraseña -->
+  <div
+    class="modal-overlay"
+    id="passwordModal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="passwordTitle"
+    aria-describedby="passwordDescription"
+    aria-hidden="true"
+    inert
+  >
+    <section class="password-card">
+      <div class="card-decorations" aria-hidden="true">
+        🔐 🌹
+      </div>
+
+      <h2 class="password-title" id="passwordTitle">
+        Una carta para ti
+      </h2>
+
+      <p class="password-description" id="passwordDescription">
+        Hay unas palabras especiales esperando por ti.<br>
+        Ingresa el código de 4 números para leerlas.
+      </p>
+
+      <form id="passwordForm" novalidate>
+        <label class="password-label" for="passwordInput">
+          Código de acceso
+        </label>
+
+        <input
+          class="password-input"
+          id="passwordInput"
+          type="password"
+          inputmode="numeric"
+          pattern="[0-9]{4}"
+          minlength="4"
+          maxlength="4"
+          autocomplete="off"
+          aria-describedby="passwordError"
+          required
+        >
+
+        <p
+          class="password-error"
+          id="passwordError"
+          role="alert"
+        ></p>
+
+        <div class="password-actions">
+          <button
+            class="close-card-btn"
+            id="submitPasswordBtn"
+            type="submit"
+          >
+            Abrir carta 💙
+          </button>
+
+          <button
+            class="password-cancel"
+            id="cancelPasswordBtn"
+            type="button"
+          >
+            Cancelar
+          </button>
+        </div>
+      </form>
+    </section>
   </div>
-</div>
 
-<div id="app" class="app">
-<aside class="sidebar" id="sidebar">
-    <div class="brand"><div class="logo">🧠</div>user</div>
-  <nav class="nav">
-    <button class="active" onclick="showPage('dashboard',this)"><span>⌂</span>Inicio</button>
-    <button onclick="showPage('reservas',this)"><span>◷</span>Reservar asesoría</button>
-    <button onclick="showPage('formacion',this)"><span>▣</span>Formación online</button>
-    <button onclick="showPage('herramientas',this)"><span>⚙</span>Herramientas</button>
-    <button onclick="showPage('chat',this)"><span>◌</span>Chat con asesores</button>
-    <button onclick="showPage('seguimiento',this)"><span>✓</span>Mi seguimiento</button>
-    <button onclick="showPage('pagos',this)"><span>▤</span>Pagos y facturación</button>
-  </nav>
-  <div class="side-bottom">¿Necesitas ayuda?<br><b>Centro de soporte</b><br><span>Respondemos en horario laboral.</span></div>
-</aside>
-
-<main class="main">
-  <header class="topbar">
-    <button class="mobile-menu" onclick="document.getElementById('sidebar').classList.toggle('open')">☰</button>
-    <div class="welcome"><h1 id="pageTitle">Hola, Bienvenido a Sapere Aude! 👋</h1><p id="pageSubtitle">Tu espacio para aprender, avanzar y cumplir tus objetivos.</p></div>
-  </header>
-
-  <section id="dashboard" class="page active">
-    <div class="hero"><h2>Convierte tus objetivos en avances reales.</h2><p>Reserva una sesión, consulta tus compromisos y accede a recursos seleccionados para tu proceso.</p><button class="btn" onclick="go('reservas')">Reservar una asesoría →</button></div>
-    <div class="section-title"><h2>Resumen de tu proceso</h2></div>
-    <div class="grid g4">
-      <div class="card stat"><div><small>Sesiones realizadas</small><strong>8</strong><small>+2 este mes</small></div><div class="icon">◷</div></div>
-      <div class="card stat"><div><small>Progreso general</small><strong>72%</strong><small>Buen ritmo</small></div><div class="icon">↗</div></div>
-      <div class="card stat"><div><small>Compromisos</small><strong>4</strong><small>2 pendientes</small></div><div class="icon">✓</div></div>
-      <div class="card stat"><div><small>Recursos guardados</small><strong>12</strong><small>3 nuevos</small></div><div class="icon">▣</div></div>
-    </div>
-    <div class="grid g2" style="margin-top:18px">
-      <div class="card"><div class="section-title" style="margin:0 0 15px"><h2>Próxima asesoría</h2><span class="badge">Confirmada</span></div><div class="item"><div class="item-left"><div class="item-icon">👩‍💼</div><div><b>Laura Martínez</b><div class="muted">Orientación académica · 45 min</div></div></div><b>04:00 PM</b></div><button class="btn secondary" style="width:100%;margin-top:12px" onclick="go('chat')">Abrir chat con asesora</button></div>
-      <div class="card"><div class="section-title" style="margin:0 0 15px"><h2>Tu objetivo actual</h2><span class="badge">72%</span></div><h3 style="margin:5px 0">Fortalecer competencias profesionales</h3><p class="muted">Plan de 12 sesiones · 8 completadas</p><div class="progress"><div style="width:72%"></div></div><div style="display:flex;justify-content:space-between;margin-top:8px" class="muted"><span>Inicio: 03 Jun</span><span>Meta: 30 Sep</span></div></div>
-    </div>
-    <div class="section-title"><h2>Próximos compromisos</h2><button class="btn ghost" onclick="go('seguimiento')">Ver todos</button></div>
-    <div class="card list">
-      <div class="item"><div class="item-left"><div class="item-icon">📘</div><div><b>Completar módulo de comunicación</b><div class="muted">Fecha límite · 30 Ago</div></div></div><span class="badge orange">Pendiente</span></div>
-      <div class="item"><div class="item-left"><div class="item-icon">📝</div><div><b>Preparar preguntas para la próxima sesión</b><div class="muted">Fecha límite · 02 Sep</div></div></div><span class="badge">En progreso</span></div>
-    </div>
-  </section>
-
-  <section id="reservas" class="page">
-    <div class="card"><div class="section-title" style="margin:0 0 22px"><div><h2>Reserva tu asesoría</h2><div class="muted">Elige el servicio, fecha y horario que mejor se adapte a ti.</div></div></div>
-      <div class="grid g2">
-        <div class="form">
-          <div class="field"><label>Tipo de servicio</label><select id="service"><option>Asesoría académica</option><option>Orientación profesional</option><option>Consultoría empresarial</option><option>Preparación de proyectos</option></select></div>
-          <div class="field"><label>Modalidad</label><select><option>Videollamada</option><option>Presencial</option></select></div>
-          <div class="field"><label>Motivo de la sesión</label><textarea placeholder="Cuéntanos brevemente qué quieres trabajar..."></textarea></div>
-        </div>
-        <div>
-          <label style="font-size:13px;font-weight:700">Selecciona una fecha</label>
-          <div class="calendar" style="margin-top:9px">
-            <div class="day">Lun<br>24</div><div class="day">Mar<br>25</div><div class="day">Mié<br>26</div><div class="day">Jue<br>27</div><div class="day available selected">Vie<br>28</div><div class="day available">Sáb<br>29</div><div class="day">Dom<br>30</div>
-          </div>
-          <label style="display:block;font-size:13px;font-weight:700;margin:20px 0 9px">Horarios disponibles</label>
-          <div class="time-grid"><button class="time">2:00 PM</button><button class="time selected">4:00 PM</button><button class="time">5:30 PM</button><button class="time">7:00 PM</button></div>
-          <button class="btn" style="width:100%;margin-top:20px" onclick="confirmBooking()">Confirmar reserva</button>
-        </div>
+  <!-- Carta con el poema -->
+  <div
+    class="modal-overlay"
+    id="cardModal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="cardTitle"
+    aria-hidden="true"
+    inert
+  >
+    <article class="love-card" id="loveCard" tabindex="0">
+      <div class="card-decorations" aria-hidden="true">
+        🌹 ✨ 🌹
       </div>
-    </div>
-  </section>
 
-  <section id="formacion" class="page">
-    <div class="hero"><h2>Tu biblioteca de formación</h2><p>Accede rápidamente a tus plataformas de aprendizaje y continúa desarrollando tus habilidades.</p></div>
-    <div class="section-title"><h2>Plataformas de formación</h2></div>
-    <div class="grid g3">
-      <div class="card tool"><div class="bigicon">🎓</div><h3>Campus Impulso</h3><p>Cursos internos, rutas de aprendizaje y materiales de tus asesores.</p><button class="btn secondary" onclick="toast('Abriendo Campus Impulso')">Acceder →</button></div>
-      <div class="card tool"><div class="bigicon">💻</div><h3>Coursera</h3><p>Cursos universitarios y profesionales para complementar tu formación.</p><button class="btn secondary" onclick="toast('Abriendo plataforma de formación')">Acceder →</button></div>
-      <div class="card tool"><div class="bigicon">📚</div><h3>Biblioteca digital</h3><p>Artículos, ebooks y material de consulta recomendado.</p><button class="btn secondary" onclick="toast('Abriendo biblioteca digital')">Acceder →</button></div>
-    </div>
-  </section>
+      <div class="card-recipient">Para ti, Mariana</div>
 
-  <section id="herramientas" class="page">
-    <div class="section-title" style="margin-top:0"><div><h2>Herramientas de apoyo</h2><div class="muted">Recursos prácticos para estudiar, organizarte y trabajar mejor.</div></div></div>
-    <div class="grid g3">
-      <div class="card tool"><div class="bigicon">🧠</div><h3>Planificador de estudio</h3><p>Organiza sesiones, tareas y fechas límite.</p><button class="btn secondary" onclick="openModal('Planificador','Define tus tareas y distribúyelas durante la semana.')">Abrir herramienta</button></div>
-      <div class="card tool"><div class="bigicon">📊</div><h3>Calculadora financiera</h3><p>Estima cuotas, presupuestos y escenarios básicos.</p><button class="btn secondary" onclick="openModal('Calculadora financiera','Herramienta preparada para incorporar tus variables de presupuesto.')">Abrir herramienta</button></div>
-      <div class="card tool"><div class="bigicon">📝</div><h3>Generador de checklist</h3><p>Convierte objetivos en acciones concretas y medibles.</p><button class="btn secondary" onclick="openModal('Checklist','Crea una lista de acciones para tu próximo objetivo.')">Abrir herramienta</button></div>
-      <div class="card tool"><div class="bigicon">🔎</div><h3>Buscador de recursos</h3><p>Encuentra material de apoyo según tu proceso.</p><button class="btn secondary" onclick="openModal('Recursos','Aquí puedes conectar un buscador de documentos y enlaces.')">Explorar</button></div>
-      <div class="card tool"><div class="bigicon">⏱️</div><h3>Temporizador Pomodoro</h3><p>Trabaja por bloques de concentración y descanso.</p><button class="btn secondary" onclick="openModal('Pomodoro','25 minutos de concentración + 5 minutos de descanso.')">Iniciar</button></div>
-      <div class="card tool"><div class="bigicon">🎯</div><h3>Metas SMART</h3><p>Formula objetivos específicos, medibles y alcanzables.</p><button class="btn secondary" onclick="openModal('Metas SMART','Define qué quieres lograr, cómo medirlo y cuándo completarlo.')">Crear meta</button></div>
-    </div>
-  </section>
+      <h2 class="card-title" id="cardTitle">
+        Quiero tener esa probabilidad contigo
+      </h2>
 
-  <section id="chat" class="page">
-    <div class="card chat">
-      <div class="chat-list"><h3 style="margin:8px">Conversaciones</h3><div class="chat-user active"><div class="avatar">LM</div><div><b>Laura Martínez</b><div class="muted">En línea</div></div></div><div class="chat-user"><div class="avatar" style="background:#f0efff;color:#5b5ce2">AG</div><div><b>Andrés Gómez</b><div class="muted">Ayer</div></div></div></div>
-      <div class="chat-main"><div style="padding:17px;border-bottom:1px solid var(--border)"><b>Laura Martínez</b><div class="muted">Asesora académica · ● En línea</div></div>
-        <div class="messages" id="messages"><div class="bubble them">¡Hola, Carlos! ¿Cómo avanzaste con el módulo que acordamos?</div><div class="bubble me">Hola Laura. Ya completé la primera parte y tengo algunas dudas.</div><div class="bubble them">Perfecto. Envíamelas por aquí y las revisamos antes de la próxima sesión.</div></div>
-        <form class="chat-input" onsubmit="sendMessage(event)"><input id="chatText" placeholder="Escribe un mensaje..." required><button class="btn">Enviar</button></form>
+      <div class="poem-divider" aria-hidden="true"></div>
+
+      <div class="card-message poem" id="cardMessage">
+        <p class="stanza italian-verse" lang="it">
+          Tra mille destini e infiniti sentieri,<br>
+          sei tu il dolce sogno che abita i miei pensieri.<br>
+          In ogni sguardo, in ogni sorriso che mi regali,<br>
+          trovo la speranza che il mio cuore mai tradisca.
+        </p>
+
+        <p class="stanza">
+          Eres etérea, como la luz sobre el mar,<br>
+          tu voz, un melifluo susurro que quisiera escuchar;<br>
+          eres un enigma que quiero descifrar,<br>
+          con ternura, sin prisa, sin nada que forzar.
+        </p>
+
+        <p class="stanza">
+          Me gusta todo de ti, Mariana, hasta lo más sencillo:<br>
+          tu manera de mirarme, tu sonrisa y su brillo;<br>
+          aunque a veces parezca serio y distante,<br>
+          me descubro sonriendo con tenerte delante.
+        </p>
+
+        <p class="stanza">
+          Quiero conocerte, más allá de lo que veo,<br>
+          escuchar tus sueños y aquello que aún es un deseo;<br>
+          saber qué te hace reír, qué canción te hace bailar,<br>
+          y qué pequeños detalles te dan ganas de quedarte a hablar.
+        </p>
+
+        <p class="stanza">
+          No te puedo sacar de mi cabeza,<br>
+          pensarte vuelve dulce hasta mi tristeza;<br>
+          eres esa chispa que me invita a creer<br>
+          que algo hermoso entre nosotros puede suceder.
+        </p>
+
+        <p class="stanza">
+          Extraño hablar contigo al terminar el día,<br>
+          tu voz y esas palabras que me daban alegría;<br>
+          no quiero confesártelo, prefiero dejarlo escrito:<br>
+          te busco entre mis versos, aunque no lo diga a gritos.
+        </p>
+
+        <p class="stanza">
+          Contigo quiero tener esa probabilidad,<br>
+          aunque sea nula, aunque otra sea la realidad;<br>
+          y cuando me hablas tan dulcemente,<br>
+          dejo de pensar racionalmente.
+        </p>
+
+        <p class="stanza">
+          Te lo quiero expresar para no arrepentirme,<br>
+          para que el miedo no consiga detenerme;<br>
+          prefiero hablarte con el corazón abierto<br>
+          a guardar lo que siento por temor a lo incierto.
+        </p>
+
+        <p class="stanza">
+          No sé si esta noche te volveré a soñar,<br>
+          pero pensando en ti me voy a acostar;<br>
+          ojalá alguna vez, antes de dormir,<br>
+          también sonrías al acordarte de mí.
+        </p>
+
+        <p class="stanza">
+          No te pido promesas ni una eternidad,<br>
+          solo una oportunidad nacida en libertad;<br>
+          tomar tu mano, si la acercas a la mía,<br>
+          y hacer de una tarde cualquiera nuestra alegría.
+        </p>
       </div>
-    </div>
-  </section>
 
-  <section id="seguimiento" class="page">
-    <div class="grid g3">
-      <div class="card"><small class="muted">Objetivo principal</small><h2>72%</h2><div class="progress"><div style="width:72%"></div></div><p class="muted">8 de 12 sesiones completadas</p></div>
-      <div class="card"><small class="muted">Compromisos cumplidos</small><h2>14 / 17</h2><div class="progress"><div style="width:82%"></div></div><p class="muted">82% de cumplimiento</p></div>
-      <div class="card"><small class="muted">Próxima revisión</small><h2>04 Sep</h2><p class="muted">Revisión de avances con tu asesora.</p></div>
-    </div>
-    <div class="section-title"><h2>Plan de acción</h2></div>
-    <div class="card"><table class="table"><thead><tr><th>Compromiso</th><th>Sesión</th><th>Fecha</th><th>Estado</th></tr></thead><tbody><tr><td>Completar módulo de comunicación</td><td>#8</td><td>30 Ago</td><td><span class="badge orange">Pendiente</span></td></tr><tr><td>Preparar preguntas para sesión</td><td>#9</td><td>02 Sep</td><td><span class="badge">En progreso</span></td></tr><tr><td>Actualizar hoja de vida</td><td>#7</td><td>22 Ago</td><td><span class="badge">Completado</span></td></tr><tr><td>Investigar tres alternativas de formación</td><td>#6</td><td>18 Ago</td><td><span class="badge">Completado</span></td></tr></tbody></table></div>
-  </section>
+      <div class="poem-divider" aria-hidden="true"></div>
 
-  <section id="pagos" class="page">
-    <div class="grid g3">
-      <div class="card"><small class="muted">Saldo pendiente</small><h2>$480.000</h2><p class="muted">2 servicios empresariales</p><button class="btn" onclick="openModal('Realizar pago','En producción, aquí se integraría la pasarela de pagos correspondiente.')">Pagar ahora</button></div>
-      <div class="card"><small class="muted">Pagado este año</small><h2>$2.160.000</h2><p class="muted">6 transacciones</p></div>
-      <div class="card"><small class="muted">Próxima factura</small><h2>15 Sep</h2><p class="muted">Consultoría empresarial</p></div>
-    </div>
-    <div class="section-title"><h2>Historial de pagos</h2></div>
-    <div class="card"><table class="table"><thead><tr><th>Servicio</th><th>Fecha</th><th>Valor</th><th>Estado</th><th></th></tr></thead><tbody><tr><td>Consultoría empresarial</td><td>15 Ago 2026</td><td>$480.000</td><td><span class="badge">Pagado</span></td><td><button class="btn ghost">Factura</button></td></tr><tr><td>Plan de asesoría</td><td>10 Jul 2026</td><td>$360.000</td><td><span class="badge">Pagado</span></td><td><button class="btn ghost">Factura</button></td></tr><tr><td>Consultoría empresarial</td><td>15 Sep 2026</td><td>$480.000</td><td><span class="badge orange">Pendiente</span></td><td><button class="btn ghost" onclick="openModal('Realizar pago','Aquí se conectaría la pasarela de pago.')">Pagar</button></td></tr></tbody></table></div>
-  </section>
-</main>
-</div>
+      <div class="card-signature">
+        Con cariño, para ti
+      </div>
 
-<div class="modal" id="modal"><div class="modal-box"><div class="modal-head"><h2 id="modalTitle" style="margin:0">Título</h2><button class="close" onclick="closeModal()">×</button></div><p id="modalText" class="muted" style="line-height:1.6"></p><button class="btn" style="width:100%" onclick="closeModal()">Continuar</button></div></div>
-<div class="toast" id="toast"></div>
+      <button
+        class="close-card-btn"
+        id="closeBtn"
+        type="button"
+      >
+        Cerrar carta ✨
+      </button>
+    </article>
+  </div>
 
-<div class="whatsapp-container">
-  <span class="whatsapp-message">¡Chatea con nosotros!</span>
-  <a href="https://wa.me/573196188448" class="whatsapp-btn" target="_blank" title="Contactar por WhatsApp">
-    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.67-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.076 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421-7.403h-.004a6.963 6.963 0 00-6.951 6.999c0 1.539.475 2.99 1.367 4.211L2.257 22l4.558-1.311a6.964 6.964 0 004.11 1.289h.004c3.857 0 6.996-3.141 6.996-6.999 0-1.868-.727-3.625-2.048-4.947S13.947 6.979 12.051 6.979m0-1.5c2.189 0 4.247.852 5.787 2.392 1.54 1.54 2.388 3.597 2.388 5.787 0 4.512-3.676 8.189-8.189 8.189-1.54 0-3.032-.435-4.317-1.254l-.31-.178-3.21.923.942-3.144-.184-.294C3.167 16.5 2.647 14.882 2.647 13.178c0-4.512 3.676-8.189 8.189-8.189h.218Z" fill="white"/>
-    </svg>
-  </a>
-</div>
+  <script>
+    // CAMBIA AQUÍ LA CONTRASEÑA: exactamente cuatro números.
+    const CARD_PASSWORD = '1550';
 
-<script>
-const titles={dashboard:['Hola, Carlos 👋','Tu espacio para aprender, avanzar y cumplir tus objetivos.'],reservas:['Reserva una asesoría','Selecciona el servicio y horario que mejor se adapte a ti.'],formacion:['Formación online','Amplía tus conocimientos con recursos seleccionados.'],herramientas:['Herramientas','Recursos prácticos para estudiar y trabajar mejor.'],chat:['Chat con asesores','Comunícate directamente con tu equipo de acompañamiento.'],seguimiento:['Mi seguimiento','Consulta avances, compromisos y próximos pasos.'],pagos:['Pagos y facturación','Gestiona tus servicios empresariales y comprobantes.']};
-function showPage(id,btn){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));if(btn)btn.classList.add('active');document.getElementById('pageTitle').textContent=titles[id][0];document.getElementById('pageSubtitle').textContent=titles[id][1];document.getElementById('sidebar').classList.remove('open');}
-function go(id){const b=[...document.querySelectorAll('.nav button')].find(x=>x.getAttribute('onclick')?.includes("'"+id+"'"));showPage(id,b)}
-function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2200)}
-function confirmBooking(){toast('Reserva confirmada para hoy a las 4:00 PM ✓')}
-function sendMessage(e){e.preventDefault();const input=document.getElementById('chatText');const box=document.getElementById('messages');const b=document.createElement('div');b.className='bubble me';b.textContent=input.value;box.appendChild(b);input.value='';box.scrollTop=box.scrollHeight;setTimeout(()=>{const r=document.createElement('div');r.className='bubble them';r.textContent='¡Recibido! Lo revisamos y te respondo en breve.';box.appendChild(r);box.scrollTop=box.scrollHeight},700)}
-function openModal(t,x){document.getElementById('modalTitle').textContent=t;document.getElementById('modalText').textContent=x;document.getElementById('modal').classList.add('open')}
-function closeModal(){document.getElementById('modal').classList.remove('open')}
-function toggleAuth(){const title=document.getElementById('authTitle'),sub=document.getElementById('authSubtitle'),name=document.getElementById('nameField'),btn=document.getElementById('authBtn'),authBtn=document.getElementById('authToggleBtn');const reg=name.style.display==='none';name.style.display=reg?'block':'none';title.textContent=reg?'Crea tu cuenta':'Bienvenido de nuevo';sub.textContent=reg?'Regístrate para gestionar tu proceso y servicios.':'Accede a tus asesorías, recursos y seguimiento.';btn.textContent=reg?'Registrarme':'Iniciar sesión';authBtn.textContent=reg?'Crear una cuenta':'Iniciar sesión'}
-function openAuthModal(){document.getElementById('auth').classList.add('open')}
-function closeAuthModal(){document.getElementById('auth').classList.remove('open');document.getElementById('nameField').style.display='none';document.getElementById('authTitle').textContent='Bienvenido de nuevo';document.getElementById('authSubtitle').textContent='Accede a tus asesorías, recursos y seguimiento.';document.getElementById('authBtn').textContent='Iniciar sesión';document.getElementById('authToggleBtn').textContent='Iniciar sesión'}
-function login(e){e.preventDefault();document.getElementById('auth').classList.remove('open');document.getElementById('app').style.display='flex';toast('Sesión iniciada correctamente ✓')}
-</script>
+    // Partículas doradas
+    const canvas = document.getElementById('ambientCanvas');
+    const ctx = canvas.getContext('2d');
+
+    const motionPreference = window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    );
+
+    let reducedMotion = motionPreference.matches;
+    let animationId = null;
+
+    const particles = [];
+    const particleCount = 100;
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+
+    class GlowingSpark {
+      constructor() {
+        this.reset();
+      }
+
+      reset() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 2.2 + 0.6;
+        this.speedY = -(Math.random() * 0.5 + 0.2);
+        this.speedX = (Math.random() - 0.5) * 0.4;
+        this.alpha = Math.random() * 0.75 + 0.15;
+
+        this.alphaStep =
+          (Math.random() * 0.015 + 0.005) *
+          (Math.random() > 0.5 ? 1 : -1);
+      }
+
+      update() {
+        this.y += this.speedY;
+        this.x += this.speedX;
+        this.alpha += this.alphaStep;
+
+        if (this.alpha <= 0.1) {
+          this.alpha = 0.1;
+          this.alphaStep = Math.abs(this.alphaStep);
+        } else if (this.alpha >= 0.95) {
+          this.alpha = 0.95;
+          this.alphaStep = -Math.abs(this.alphaStep);
+        }
+
+        if (
+          this.y < 0 ||
+          this.x < 0 ||
+          this.x > canvas.width
+        ) {
+          this.reset();
+          this.y = canvas.height + 10;
+        }
+      }
+
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 235, 150, ${this.alpha})`;
+        ctx.shadowBlur = 12;
+        ctx.shadowColor = '#ffd700';
+        ctx.fill();
+      }
+    }
+
+    function drawParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      particles.forEach((particle) => {
+        if (!reducedMotion) {
+          particle.update();
+        }
+
+        particle.draw();
+      });
+    }
+
+    function animate() {
+      drawParticles();
+      animationId = requestAnimationFrame(animate);
+    }
+
+    function updateAnimation() {
+      if (animationId !== null) {
+        cancelAnimationFrame(animationId);
+        animationId = null;
+      }
+
+      if (reducedMotion) {
+        drawParticles();
+      } else {
+        animate();
+      }
+    }
+
+    if (ctx) {
+      resizeCanvas();
+
+      for (let i = 0; i < particleCount; i++) {
+        particles.push(new GlowingSpark());
+      }
+
+      updateAnimation();
+
+      window.addEventListener('resize', () => {
+        resizeCanvas();
+        particles.forEach((particle) => particle.reset());
+
+        if (reducedMotion) {
+          drawParticles();
+        }
+      });
+
+      motionPreference.addEventListener('change', (event) => {
+        reducedMotion = event.matches;
+        updateAnimation();
+      });
+    }
+
+    // Elementos de la carta
+    const modal = document.getElementById('cardModal');
+    const loveCard = document.getElementById('loveCard');
+    const mainContent = document.getElementById('mainContent');
+    const openBtn = document.getElementById('openBtn');
+    const closeBtn = document.getElementById('closeBtn');
+
+    // Elementos de la ventana de contraseña
+    const passwordModal = document.getElementById('passwordModal');
+    const passwordForm = document.getElementById('passwordForm');
+    const passwordInput = document.getElementById('passwordInput');
+    const passwordError = document.getElementById('passwordError');
+
+    const submitPasswordBtn = document.getElementById(
+      'submitPasswordBtn'
+    );
+
+    const cancelPasswordBtn = document.getElementById(
+      'cancelPasswordBtn'
+    );
+
+    let previousOverflow = '';
+    let activeDialog = null;
+
+    function resetPasswordForm() {
+      passwordForm.reset();
+      passwordError.textContent = '';
+      passwordInput.removeAttribute('aria-invalid');
+    }
+
+    function showPassword() {
+      if (activeDialog !== null) {
+        return;
+      }
+
+      previousOverflow = document.body.style.overflow;
+      resetPasswordForm();
+
+      passwordModal.inert = false;
+      passwordModal.setAttribute('aria-hidden', 'false');
+      passwordModal.classList.add('active');
+
+      activeDialog = 'password';
+      passwordInput.focus({ preventScroll: true });
+
+      mainContent.inert = true;
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closePassword() {
+      if (activeDialog !== 'password') {
+        return;
+      }
+
+      passwordModal.classList.remove('active');
+      mainContent.inert = false;
+      document.body.style.overflow = previousOverflow;
+      activeDialog = null;
+
+      openBtn.focus({ preventScroll: true });
+
+      passwordModal.setAttribute('aria-hidden', 'true');
+      passwordModal.inert = true;
+
+      resetPasswordForm();
+    }
+
+    function openCard() {
+      modal.inert = false;
+      modal.setAttribute('aria-hidden', 'false');
+      modal.classList.add('active');
+
+      activeDialog = 'card';
+      loveCard.scrollTop = 0;
+      loveCard.focus({ preventScroll: true });
+
+      passwordModal.classList.remove('active');
+      passwordModal.setAttribute('aria-hidden', 'true');
+      passwordModal.inert = true;
+
+      resetPasswordForm();
+
+      mainContent.inert = true;
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeCard() {
+      if (activeDialog !== 'card') {
+        return;
+      }
+
+      modal.classList.remove('active');
+      mainContent.inert = false;
+      document.body.style.overflow = previousOverflow;
+      activeDialog = null;
+
+      openBtn.focus({ preventScroll: true });
+
+      modal.setAttribute('aria-hidden', 'true');
+      modal.inert = true;
+    }
+
+    function showPasswordError(message) {
+      passwordError.textContent = message;
+      passwordInput.setAttribute('aria-invalid', 'true');
+      passwordInput.focus({ preventScroll: true });
+      passwordInput.select();
+    }
+
+    // Permitir solamente cuatro dígitos.
+    passwordInput.addEventListener('input', () => {
+      passwordInput.value = passwordInput.value
+        .replace(/[^0-9]/g, '')
+        .slice(0, 4);
+
+      passwordError.textContent = '';
+      passwordInput.removeAttribute('aria-invalid');
+    });
+
+    // Validar al pulsar Abrir carta o Enter.
+    passwordForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+
+      if (activeDialog !== 'password') {
+        return;
+      }
+
+      const enteredPassword = passwordInput.value;
+
+      if (!/^[0-9]{4}$/.test(enteredPassword)) {
+        showPasswordError('Ingresa exactamente 4 números.');
+        return;
+      }
+
+      if (enteredPassword !== CARD_PASSWORD) {
+        showPasswordError(
+          'Ese no es el código. Inténtalo de nuevo 💙'
+        );
+        return;
+      }
+
+      openCard();
+    });
+
+    openBtn.addEventListener('click', showPassword);
+    cancelPasswordBtn.addEventListener('click', closePassword);
+    closeBtn.addEventListener('click', closeCard);
+
+    // Cerrar al pulsar fuera de las ventanas.
+    passwordModal.addEventListener('click', (event) => {
+      if (event.target === passwordModal) {
+        closePassword();
+      }
+    });
+
+    modal.addEventListener('click', (event) => {
+      if (event.target === modal) {
+        closeCard();
+      }
+    });
+
+    // Mantener el foco dentro de la ventana activa.
+    function trapFocus(event, elements) {
+      const firstElement = elements[0];
+      const lastElement = elements[elements.length - 1];
+      const focusedElement = document.activeElement;
+
+      if (!elements.includes(focusedElement)) {
+        event.preventDefault();
+
+        const target = event.shiftKey
+          ? lastElement
+          : firstElement;
+
+        target.focus({ preventScroll: true });
+        return;
+      }
+
+      if (event.shiftKey && focusedElement === firstElement) {
+        event.preventDefault();
+        lastElement.focus({ preventScroll: true });
+      } else if (
+        !event.shiftKey &&
+        focusedElement === lastElement
+      ) {
+        event.preventDefault();
+        firstElement.focus({ preventScroll: true });
+      }
+    }
+
+    document.addEventListener('keydown', (event) => {
+      if (activeDialog === null) {
+        return;
+      }
+
+      if (event.key === 'Escape') {
+        event.preventDefault();
+
+        if (activeDialog === 'password') {
+          closePassword();
+        } else {
+          closeCard();
+        }
+
+        return;
+      }
+
+      if (event.key === 'Tab') {
+        if (activeDialog === 'password') {
+          trapFocus(event, [
+            passwordInput,
+            submitPasswordBtn,
+            cancelPasswordBtn
+          ]);
+        } else {
+          trapFocus(event, [loveCard, closeBtn]);
+        }
+      }
+    });
+  </script>
 </body>
 </html>
